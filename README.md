@@ -19,3 +19,9 @@
 - 성능
 - 데이터 접근 추상화와 벤더 독립성
 - 표준
+### 1.2 Hello JPA - 프로젝트 생성
+- JPA 설정하기
+- /META-INF/pesistence.xml 파일 및 디렉토리 생성
+- persistence-unit name으로 이름 지정
+- javax.persistence로 시작: JPA 표준 속성
+- hibernate로 시작: 하이버네이트 전용 속성
