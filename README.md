@@ -25,3 +25,7 @@
 - persistence-unit name으로 이름 지정
 - javax.persistence로 시작: JPA 표준 속성
 - hibernate로 시작: 하이버네이트 전용 속성
+### 1.3 Hello JPA - 애플리케이션 개발
+- JpaMain 클래스 생성
+- JPA 동작 확인
+- javax.xml.bind.JAXBException 에러 해결 -> pom.xml에 dependency 추가
