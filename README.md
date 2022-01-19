@@ -53,6 +53,7 @@
   - 준영속 (detached) -> 영속성 컨텍스트에 저장되었다가 분리된 상태<br>
   - 삭제 (removed) -> 삭제된 상태 
 </details>
+
 - <details><summary>영속성 컨텍스트의 이점</summary>
   - 1차 캐시<br>
   - 동일성(identity) 보장<br>
