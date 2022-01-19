@@ -26,7 +26,7 @@ public class JpaMain {
 
             //조건 조회-예를 들면 나이가 18살 이상인 회원 모두 조회하고 싶다면? -> JPQL 사용해야한다.
             //전체 회원 검색
-            List<Member> fineMemberList = em.createQuery("select m from Member as m",Member.class)
+/*            List<Member> fineMemberList = em.createQuery("select m from Member as m",Member.class)
                     .getResultList();
 
             for (Member member : fineMemberList){
@@ -41,8 +41,18 @@ public class JpaMain {
 
             for (Member member : fineMemberListPaging){
                 System.out.println("member.name = " + member.getName());
-            }
+            }*/
             
+            //비영속 -> JPA와 관련 없다.
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("HelloJPA");
+
+            //영속상태 -> 아직 DB에 저장 되지 않는다.
+            System.out.println("=====BEFORE====");
+            em.persist(member);
+            System.out.println("=====AFTER====");
+
             //바꾼 후 반영
             tx.commit();
         }catch (Exception e){
