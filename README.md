@@ -29,3 +29,15 @@
 - JpaMain 클래스 생성
 - JPA 동작 확인
 - javax.xml.bind.JAXBException 에러 해결 -> pom.xml에 dependency 추가
+- 엔티티 매니저 팩토리는 하나만 생성하여 애플리케이션 전체에서 공유한다.
+- 엔티티 매니저는 쓰레드간 공유X
+- JPA의 모든 데이터 변경은 트랜잭션 안에서 실행해야한다.
+- 회원 등록, 수정, 삭제, 단건 조회 테스트
+- 애플리케이션이 필요한 데이터만 DB에서 불러오기 위해 검색 조건 포함된 SQL이 필요하다.
+- <details><summary>JPQL</summary>
+  - JPA를 사용하면 엔티티 객체를 중심으로 개발한다.<br>
+  - SQL과 문법 유사, SELECT, FROM, WHERE, GROUP BY, HAVING, JOIN 지원<br>
+  - JPQL은 엔티티 객체를 대상으로 쿼리<br>
+  - SQL은 데이터베이스 테이블을 대상으로 쿼리
+  - 테이블이 아닌 객체를 대상으로 검색하는 객체 지향 쿼리
+</details>
