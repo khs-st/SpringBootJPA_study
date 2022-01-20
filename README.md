@@ -64,6 +64,7 @@
 
 #### 1.4.2 영속성 컨텍스트2
 <details><summary>엔티티 조회, 등록, 수정, 삭제, 플러시 정리</summary>
+
 - **엔티티 조회, 1차 캐시**
 <pre>
 //엔티티를 생성한 상태(비영속) 
@@ -111,5 +112,11 @@ Member member = em.find(Member.class,150L);
 member.setName("Modify Name");
 //순서: 1. flush -> 2. 엔티티와 스냅샷 비교 -> 3. UPDATE SQL 생성 -> 4. flush -> 5. commit
 </pre>
+- **플러시**
+  - 영속성 컨텍스트를 플러시 하는 방법
+  - em.flush() -> 직접 호출
+  - 트랜잭션 커밋 -> 플러시 자동 호출
+  - JPQL 쿼리 실행 -> 플러시 자동 호출
+
 - **엔티티 삭제**
 </details>

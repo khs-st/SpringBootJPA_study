@@ -35,10 +35,19 @@ public class JpaMain2 {
             //System.out.println("=================");
             
             //엔티티 수정 - 변경 감지
-            Member member = em.find(Member.class,150L);
+            //Member member = em.find(Member.class,150L);
             //데이터 변경 후 persist 호출할 필요 없다.
-            member.setName("Modify Name1");
+            //member.setName("Modify Name1");
 
+            //영속성 컨텍스트를 플러시 하는 방법
+            Member member = new Member(300L,"member300");
+            em.persist(member);
+
+            // 쓰기 지연 SQL 저장소의 쿼리를 데이터베이스에 반영(등록, 수정, 삭제 쿼리)
+            //트랜잭션 commit과 상관없이 즉시(쿼리가 DB에 반영) 일어난다.
+            em.flush();
+
+            System.out.println("==================");
 
             //커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
             tx.commit();
