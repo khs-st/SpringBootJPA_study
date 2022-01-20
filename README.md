@@ -43,7 +43,7 @@
 </details>
 
 ### 1.4 영속성 관리 - 내부 동작 방식
-#### 1.4.1 영속성 컨텍스트
+#### 1.4.1 영속성 컨텍스트 1
 - 영속성 컨텍스트란? “엔티티를 영구 저장하는 환경”이라는 뜻이며 논리적인 개념이다.
 - 엔티티 매니저를 통해서 영속성 컨텍스트에 접근
 - **EntityManager.persist(entity);**
@@ -60,4 +60,56 @@
   - 트랜잭션을 지원하는 쓰기 지연<br>
   - 변경 감지(Dirty Checking)<br>
   - 지연 로딩(Lazy Loading)
+</details>
+
+#### 1.4.2 영속성 컨텍스트2
+<details><summary>엔티티 조회, 등록, 수정, 삭제, 플러시 정리</summary>
+- **엔티티 조회, 1차 캐시**
+<pre>
+//엔티티를 생성한 상태(비영속) 
+Member member = new Member(); 
+member.setId("member1"); 
+member.setUsername("회원1");
+//엔티티를 영속 
+em.persist(member);
+</pre>
+- **1차 캐시에서 조회**
+<pre>
+Member member = new Member();
+member.setId("member1");
+member.setUsername("회원1");
+//1차 캐시에 저장됨
+em.persist(member);
+//1차 캐시에서 조회
+Member findMember = em.find(Member.class, "member1");
+</pre>
+- **데이터베이스에서 조회, 영속 엔티티의 동일성 보장**
+<pre>
+Member findMember2 = em.find(Member.class, "member2");
+//영속 엔티티의 동일성 보장
+Member a = em.find(Member.class, "member1"); 
+Member b = em.find(Member.class, "member1");
+//아래 코드 실행 시 true로 반환된다.
+System.out.println(a == b); 
+</pre>
+- **엔티티 등록 -> 트랜잭션을 지원하는 쓰기 지연**
+<pre>
+//영속
+Member member1 = new Member(150L,"A");
+Member member2 = new Member(160L,"B");
+em.persist(member1);
+em.persist(member2);
+System.out.println("=================");
+//커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
+tx.commit();
+</pre>
+- **엔티티 수정 - 변경 감지**
+<pre>
+//엔티티 수정 - 변경 감지
+Member member = em.find(Member.class,150L);
+//데이터 변경 후 persist 호출할 필요 없다.
+member.setName("Modify Name");
+//순서: 1. flush -> 2. 엔티티와 스냅샷 비교 -> 3. UPDATE SQL 생성 -> 4. flush -> 5. commit
+</pre>
+- **엔티티 삭제**
 </details>

@@ -13,8 +13,9 @@ public class JpaMain {
        
        //엔티티 매니저 통해서 작업
         EntityManager em = emf.createEntityManager();
-
+        //엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 한다.
         EntityTransaction tx = em.getTransaction();
+        // [트랜잭션] 시작
         tx.begin();
 
         try{   
@@ -65,6 +66,7 @@ public class JpaMain {
            System.out.println("result = "+(findMember1 == findMember2));
 
             //바꾼 후 반영
+            //커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
             tx.commit();
         }catch (Exception e){
             tx.rollback();

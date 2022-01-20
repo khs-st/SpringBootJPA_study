@@ -9,6 +9,16 @@ public class Member {
     @Id
     private Long id;
     private String name;
+    
+    //동적 개채 생성위해 기본 생성자
+    public Member(){
+        
+    }
+
+    public Member(Long id, String name){
+        this.id=id;
+        this.name=name;
+    }
 
     public Long getId() {
         return id;
