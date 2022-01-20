@@ -44,14 +44,25 @@ public class JpaMain {
             }*/
             
             //비영속 -> JPA와 관련 없다.
-            Member member = new Member();
-            member.setId(100L);
-            member.setName("HelloJPA");
+            //Member member = new Member();
+            //member.setId(101L);
+            //member.setName("HelloJPA");
 
             //영속상태 -> 아직 DB에 저장 되지 않는다.
-            System.out.println("=====BEFORE====");
-            em.persist(member);
-            System.out.println("=====AFTER====");
+            //System.out.println("=====BEFORE====");
+            //1차 캐시에 저장
+            //em.persist(member);
+            //System.out.println("=====AFTER====");
+
+            //저장 후 조회(1차 캐시에 있는거 먼저 조회)
+           //Member findMember = em.find(Member.class,101L);
+
+           //같은 걸 조회 시 2번쨰부터는 쿼리가 나오면 안된다. -> 쿼리는 1번만 나오며, 1차 캐시에서 조회되어야한다.
+           Member findMember1 = em.find(Member.class,101L);
+           Member findMember2 = em.find(Member.class,101L);
+
+           //영속 엔티티의 동일성 보장 -> 1차 캐시가 있기 때문에 가능하다.
+           System.out.println("result = "+(findMember1 == findMember2));
 
             //바꾼 후 반영
             tx.commit();
