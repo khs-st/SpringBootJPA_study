@@ -40,12 +40,25 @@ public class JpaMain2 {
             //member.setName("Modify Name1");
 
             //영속성 컨텍스트를 플러시 하는 방법
-            Member member = new Member(300L,"member300");
-            em.persist(member);
+            //Member member = new Member(300L,"member300");
+            //em.persist(member);
 
             // 쓰기 지연 SQL 저장소의 쿼리를 데이터베이스에 반영(등록, 수정, 삭제 쿼리)
             //트랜잭션 commit과 상관없이 즉시(쿼리가 DB에 반영) 일어난다.
-            em.flush();
+            //em.flush();
+
+            //준영속 -> 영속 상태의 엔티티가 영속성 컨텍스트에서 분리(detached)
+           Member member = em.find(Member.class,150L);
+            member.setName("clear!");
+
+            //특정 엔티티만 준영속 상태로 전환
+            //em.detach(member);
+
+            //영속성 컨텍스트를 완전히 초기화
+            em.clear();
+
+            //초기화 했기 때문에 다시 영속성 컨텍스트를 올린다.
+            Member member2 = em.find(Member.class,"150L");
 
             System.out.println("==================");
 
