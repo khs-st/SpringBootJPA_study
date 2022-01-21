@@ -10,12 +10,20 @@
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-
+            <!-- 데이터베이스 방언 별로 달라지는 것 확인(varchar) -> 오라클로 할 경우 varchar2로 name값이 자동 설정-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>-->
             <!-- 옵션 -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
+            <!-- 데이터베이스 스키마 자동 생성 -->
+            <!-- 기존 테이블 삭제 후 다시 생성(DROP + CREATE TABLE) -->
             <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <!-- 변경분만 반영(운영DB에 사용하면 안된다.) -->
+            <!--<property name="hibernate.hbm2ddl.auto" value="update" />-->
+            <!-- 엔티티와 테이블이 정상 매핑되었는지만 확인 -->
+            <!--<property name="hibernate.hbm2ddl.auto" value="validate" />-->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
 </persistence>

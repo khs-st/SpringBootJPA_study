@@ -125,3 +125,40 @@ member.setName("Modify Name");
 
 - **엔티티 삭제**
 </details>
+
+### 1.5 엔티티 매핑
+#### 1.5.1 객체와 테이블 매핑
+- **엔티티 매핑**
+<pre>
+@Entity : JPA를 사용해서 테이블과 매핑할 클래스는 @Entity 필수
+• 기본 생성자 필수(파라미터가 없는 public 또는 protected 생성자) 
+• final 클래스, enum, interface, inner 클래스 사용X 
+• 저장할 필드에 final 사용 X
+@Entity 속성 정리
+• 속성: name
+• JPA에서 사용할 엔티티 이름을 지정한다.
+• 기본값: 클래스 이름을 그대로 사용
+@Table:  엔티티와 매핑할 테이블 지정
+• name 속성을 이용해 매핑할 테이블 이름 지정이 가능하다.
+• 기본값은 엔티티 이름을 사용한다.
+• catalog, schema, uniqueConstraints(DDL) 등이 있다.
+</pre>
+
+- <details><summary>데이터베이스 스키마 자동 생성</summary>
+
+  - DDL을 애플리케이션 실행 시점에 자동 생성
+  - 테이블 중심 -> 객체 중심
+  - 데이터베이스 방언을 활용해서 데이터베이스에 맞는 적절한 DDL 생성(DDL은 개발 장비에서만 사용)
+  - 속성
+    - create: 기존 테이블 삭제 후 다시 생성(DROP + CREATE TABLE)
+    - create-drop: create와 같으나 종료시점에 테이블 DROP 시킨다.
+    - update: 변경분만 반영(운영DB에 사용하면 안된다.)
+    - validate: 엔티티와 테이블이 정상 매핑되었는지 체크
+    - none: 사용하지 않음
+  - **주의!!! -> 운영 장비에는 절대 create, create-drop, update 사용하면 안된다.**
+    - 개발 초기 단계 -> create 또는 update
+    - 테스트 서버 -> update 또는 validate
+    - 스테이징, 운영 서버 -> validate 또는 none
+  - DDL 생성 기능
+    - 런타임 영향을 주지 않고 단순 DDL 생성에 영향 준다.
+</details>
