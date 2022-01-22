@@ -1,9 +1,9 @@
 package helloJpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 //엔티티 매핑
 //JPA를 사용해서 테이블과 매핑할 클래스는 @Entity 필수
@@ -12,26 +12,44 @@ import javax.persistence.Table;
 //@Table(name="MBR")
 public class Member {
 
-    @Id
-    private Long id;
+    //@Id
+    //private Long id;
     //유니크 제약 조건 -> DDL 생성 기능 -> 런타임 영향을 주지 않는다. 단순 DDL 생성에 영향 준다.
-    @Column(unique = true, length = 10)
-    private String name;
+    //@Column(unique = true, length = 10)
+    //private String name;
     //update 적용 후 필드 추가, 단 지우는건 안된다. 추가만 가능하다.
     //private int age;
     //validate 적용 후 필드 추가 -> 에러가 난다. 컬럼 미존재 에러
     // -> 엔티티와 테이블 정상 매핑되었는지 확인
     //private int gogo;
 
-    //동적 개채 생성위해 기본 생성자
-    public Member(){
-        
-    }
+    @Id
+    private Long id;
+    
+    //데이터베이스 컬럼명 -> updatable 변경 가능 여부(기본값 true)
+    @Column(name = "name", updatable = false)
+    private String username;
 
-    public Member(Long id, String name){
-        this.id=id;
-        this.name=name;
-    }
+    private Integer age;
+
+    //기본이 ORDINAL
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+    //testLocalDate date,
+    //testLocalDateTime timestamp 으로 DB에 생성된다.
+    private LocalDate testLocalDate;
+    private LocalDateTime testLocalDateTime;
+
+    @Lob
+    private String description;
+
+
 
     public Long getId() {
         return id;
@@ -41,11 +59,56 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Member(){
+
+    }
+
 }

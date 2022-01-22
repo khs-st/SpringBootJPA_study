@@ -144,7 +144,9 @@ member.setName("Modify Name");
 • catalog, schema, uniqueConstraints(DDL) 등이 있다.
 </pre>
 
-- <details><summary>데이터베이스 스키마 자동 생성</summary>
+#### 1.5.2 데이터베이스 스키마 자동 생성
+
+<details><summary>데이터베이스 스키마 자동 생성</summary>
 
   - DDL을 애플리케이션 실행 시점에 자동 생성
   - 테이블 중심 -> 객체 중심
@@ -161,4 +163,42 @@ member.setName("Modify Name");
     - 스테이징, 운영 서버 -> validate 또는 none
   - DDL 생성 기능
     - 런타임 영향을 주지 않고 단순 DDL 생성에 영향 준다.
+</details>
+
+#### 1.5.3 필드와 컬럼 매핑
+
+<details><summary>매핑 어노테이션 정리</summary>
+
+<pre>
+• @Column: 컬럼 매핑
+• @Temporal: 날짜 타입 매핑
+• @Enumerated: enum 타입 매핑
+• @Lob: BLOB, CLOB 매핑
+• @Transient: 특정 필드를 컬럼에 매핑하지 않음(매핑 무시)
+</pre>
+- @Column
+<pre>
+• name: 필드와 매핑할 테이블의 컬럼 이름(기본값은 객체의 필드 이름이다.)
+• insertable, updatable: 등록, 변경 가능 여부
+• nullable: null값 허용 여부를 설정, false로 설정 시 DDL 생성 시 not null 제약조건 붙음
+• unique: @Table의 uniqueConstraints와 같지만 간단하게 유니크 제약조건 시 사용
+• columnDefinition: 데이터베이스 컬럼 정보를 직접 줄 수 있다.( 예시: varchar(100) default 'EMPTY')
+• length: 문자 길이 제약조건, String 타입에 사용한다.
+• precision, scale: BigDecimal 타입에서 사용한다.
+</pre>
+- @Enumerated: 자바 enum 타입을 매핑할 떄 사용한다. -> ORDINAL 사용X
+<pre>
+속성 value
+• EnumType.ORDINAL: enum 순서를 데이터베이스에 저장
+• EnumType.STRING: enum 이름을 데이터베이스에 저장
+기본값: • EnumType.ORDINAL: enum 순서를 데이터베이스에 저장
+• EnumType.STRING: enum 이름을 데이터베이스에 저장
+</pre>
+- @Temporal: 날짜 타입(Date, Calendar)을 매핑할 때 사용
+- @Lob: 데이터베이스 BLOB, CLOB 타입과 매핑
+<pre>
+• @Lob에는 지정할 수 있는 속성이 없다. 
+• 매핑하는 필드 타입이 문자면 CLOB 매핑, 나머지는 BLOB 매핑
+</pre>
+
 </details>

@@ -47,22 +47,34 @@ public class JpaMain2 {
             //트랜잭션 commit과 상관없이 즉시(쿼리가 DB에 반영) 일어난다.
             //em.flush();
 
-            //준영속 -> 영속 상태의 엔티티가 영속성 컨텍스트에서 분리(detached)
-           Member member = em.find(Member.class,150L);
-            member.setName("clear!");
+//            //준영속 -> 영속 상태의 엔티티가 영속성 컨텍스트에서 분리(detached)
+//           Member member = em.find(Member.class,150L);
+//            member.setName("clear!");
+//
+//            //특정 엔티티만 준영속 상태로 전환
+//            //em.detach(member);
+//
+//            //영속성 컨텍스트를 완전히 초기화
+//            em.clear();
+//
+//            //초기화 했기 때문에 다시 영속성 컨텍스트를 올린다.
+//            Member member2 = em.find(Member.class,"150L");
+//
+//            System.out.println("==================");
+//
+//            //커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
 
-            //특정 엔티티만 준영속 상태로 전환
-            //em.detach(member);
+            //@Enumerated 설명
+            //ORDINAL 기본 쓰면 안되는 이유
+            //요구사항이 늘어나서 RoleType이 추가된 경우 순서가 바뀌어버린다.
+            //그래서 STRING으로 사용해야한다.
+            Member member = new Member();
+            member.setId(4L);
+            member.setUsername("D");
+            member.setRoleType(RoleType.GUEST);
 
-            //영속성 컨텍스트를 완전히 초기화
-            em.clear();
+            em.persist(member);
 
-            //초기화 했기 때문에 다시 영속성 컨텍스트를 올린다.
-            Member member2 = em.find(Member.class,"150L");
-
-            System.out.println("==================");
-
-            //커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
             tx.commit();
         }catch (Exception e){
             tx.rollback();
