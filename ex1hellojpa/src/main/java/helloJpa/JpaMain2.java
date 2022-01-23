@@ -69,9 +69,13 @@ public class JpaMain2 {
             //요구사항이 늘어나서 RoleType이 추가된 경우 순서가 바뀌어버린다.
             //그래서 STRING으로 사용해야한다.
             Member member = new Member();
-            member.setId(4L);
+            //member.setId(4L);
+            //member.setUsername("D");
+            //member.setRoleType(RoleType.GUEST);
+
+            //기본 키 매핑 방법
+            //member.setId("ID_A");
             member.setUsername("D");
-            member.setRoleType(RoleType.GUEST);
 
             em.persist(member);
 
