@@ -8,8 +8,9 @@ import java.util.Date;
 //엔티티 매핑
 //JPA를 사용해서 테이블과 매핑할 클래스는 @Entity 필수
 @Entity
+@TableGenerator(name = "MEMBER_SEQ_GENERATOR", table = "MY_SEQUENCES", pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
 //매핑할 데이터베이스 시퀀스 이름
-@SequenceGenerator(name="member_seq_generator",sequenceName = "member_seq")
+//@SequenceGenerator(name="member_seq_generator",sequenceName = "member_seq")
 //엔티티 속성 name을 이용하여 매핑 테이블 지정 가능(@Table은 엔티티와 매핑할 테이블 지정)
 //@Table(name="MBR")
 public class Member {
@@ -28,12 +29,13 @@ public class Member {
     //call next value for hibernate_sequence -> 데이터베이스에서 다음 시퀀스 설정 쿼리 실행
     //String 값은 안된다.
     //generator를 이용해 SequenceGenerator 이름 설정
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "member_seq_generator")
+    @GeneratedValue(strategy = GenerationType.TABLE,generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
     
     //데이터베이스 컬럼명 -> updatable 변경 가능 여부(기본값 true)
     @Column(name = "name", updatable = false)
     private String username;
+
 
     public Member(){
 
