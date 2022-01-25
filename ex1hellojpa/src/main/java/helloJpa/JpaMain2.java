@@ -50,7 +50,7 @@ public class JpaMain2 {
             System.out.println("member1 id = "+member1.getId());
             System.out.println("member2 id = "+member2.getId());
             System.out.println("member3 id = "+member3.getId());
-            System.out.println("===========================");
+            System.out.println("==============================");
             
             //시퀀스 전략은 이떄 실질적 insert 쿼리를 실행한다.
             tx.commit();
